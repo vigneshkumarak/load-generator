@@ -56,6 +56,7 @@ func (r *Runner) Run() {
 				lg.Finish()
 				runDoneWg.Done()
 			}()
+
 			err := lg.Init()
 			initDoneWg.Done()
 			if err != nil {
