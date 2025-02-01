@@ -32,6 +32,11 @@ func getCounter(name string) *counter {
 	return v.(*counter)
 }
 
+func (c *counter) GetCounterVal() uint64 {
+	return uint64(atomic.LoadUint64((*uint64)(c)))
+}
+
+
 func (c *counter) Increment() uint64 {
 	return atomic.AddUint64((*uint64)(c), 1)
 }
@@ -43,6 +48,11 @@ func (c *counter) Decrement() uint64 {
 func (c *counter) Get() uint64 {
 	return *(*uint64)(c)
 }
+
+func (c *counter) Set(val uint64) {
+    atomic.StoreUint64((*uint64)(c), val)
+}
+
 
 func preloadExtraModules(ctx context.Context, L *lua.LState) {
 	luajson.Preload(L)
